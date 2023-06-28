@@ -14,9 +14,10 @@ namespace CarDealerApi.Repository
             return Save();
         }
 
-        public bool DeleteUser(string username)
+        public bool DeleteUser(User user)
         {
-            throw new NotImplementedException();
+            _context.Remove(user);
+            return Save();
         }
 
         public User GetUserByName(string user)
@@ -49,6 +50,7 @@ namespace CarDealerApi.Repository
         {
             return _context.users.Any(u=>u.Username == username);
         }
+
         public bool UserExitsById(int id)
         {
             return _context.users.Any(u => u.Id == id);

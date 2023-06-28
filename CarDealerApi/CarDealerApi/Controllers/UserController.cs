@@ -87,7 +87,6 @@ namespace CarDealerApi.Controllers
             }
         }
 
-
         private byte[] GenerateSalt()
         {
             byte[] salt = new byte[16];
@@ -137,6 +136,29 @@ namespace CarDealerApi.Controllers
             {
                 ModelState.AddModelError("", "Something went wrong while updating");
                 return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+        }
+        [HttpDelete("{Id}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteCategory(int Id)
+        {
+            if (!_userInterface.UserExitsById(Id))
+            {
+                return NotFound();
+            }
+
+            var userToDelete = _userInterface.GetUserById(Id);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!_userInterface.DeleteUser(userToDelete))
+            {
+                ModelState.AddModelError("", "Something went wrong deleting category");
             }
 
             return NoContent();

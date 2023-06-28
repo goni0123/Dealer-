@@ -12,6 +12,6 @@ namespace CarDealerApi.Interface
         bool CreateUser (User user);
         bool Save();
         bool UpdateUser(User user); 
-        bool DeleteUser(string username);
+        bool DeleteUser(User user);
     }
 }

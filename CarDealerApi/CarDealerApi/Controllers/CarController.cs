@@ -30,14 +30,14 @@ namespace CarDealerApi.Controllers
                 return BadRequest(ModelState);
             return Ok(cars);
         }
-        [HttpGet("{id}")]
+        [HttpGet("id/{id}")]
         [ProducesResponseType(200,Type =typeof(Car))]
         public IActionResult GetCar(int id) 
         {
-            if (!_carInterface.CarExits(id))
+            if (!_carInterface.CarExitsById(id))
                 return NotFound();
 
-            var car = _mapper.Map<CarDto>(_carInterface.GetCar(id));
+            var car = _mapper.Map<CarDto>(_carInterface.GetCarId(id));
 
             if (!ModelState.IsValid) 
                 return BadRequest(ModelState);
@@ -64,7 +64,20 @@ namespace CarDealerApi.Controllers
             }
 
             return Ok("Successfully created");
+        }
+        [HttpGet("name/{Name}")]
+        [ProducesResponseType(200, Type = typeof(User))]
+        public IActionResult GetCarName(string Name)
+        {
+            if (!_carInterface.CarExitsByName(Name))
+                return NotFound();
 
+            var user = _mapper.Map<CarDto>(_carInterface.GetCarName(Name));
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            return Ok(user);
         }
     }
 }

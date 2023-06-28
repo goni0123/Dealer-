@@ -7,5 +7,6 @@
         public string Password { get; set; }
         public string Email { get; set; }
         public byte[] salt { get; set; }
+        public bool Role { get; set; }
     }
 }
